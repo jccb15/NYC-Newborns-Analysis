@@ -18,7 +18,9 @@ import axios from "axios";
 export default class HelloWorld extends Vue {
   //data
   babies:Baby[] = []
+  globalMap: Map<string,number> = new Map
   dataLoaded:boolean = false
+
   //computed
 
 
@@ -39,7 +41,6 @@ export default class HelloWorld extends Vue {
         let ethnia!:Ethnicity
 
         switch (element[10]) {
-
           case "HISPANIC":
             ethnia = Ethnicity.Hispanic;
             break;
@@ -57,7 +58,23 @@ export default class HelloWorld extends Vue {
         let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
         this.babies.push(baby)
       });
+      this.getTopTen(this.babies)
     })
+  }
+
+  getTopTen(babies:Baby[]){
+    let babiesMap: Map<string,number> = new Map
+    for (let baby of babies){
+      if (babiesMap.has(baby.name)){
+        babiesMap.set(baby.name, babiesMap.get(baby.name)!+1)
+      }
+      else{
+        babiesMap.set(baby.name, 1)
+      }
+    }
+
+    console.log(babiesMap)
+    
 
   }
 }
