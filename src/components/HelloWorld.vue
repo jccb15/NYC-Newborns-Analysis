@@ -17,22 +17,24 @@ import axios from "axios";
 @Component
 export default class HelloWorld extends Vue {
   //data
-  @Prop() babies:Baby[] = []
+  babies:Baby[] = []
+  dataLoaded:boolean = false
   //computed
 
 
   //methods
 
   created(){
-    this.getData()
+    if (this.dataLoaded == false) {
+      this.getData()
+      this.dataLoaded = true
+    }
   }
 
   getData(){
     const url:string = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.json"
-    const self = this;
     axios.get(url).then(response => {
       let responseData:any[] = response.data.data;
-      //const vm = self;
       responseData.forEach(element => {
         let ethnia!:Ethnicity
 
@@ -53,9 +55,7 @@ export default class HelloWorld extends Vue {
         }
 
         let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
-
         this.babies.push(baby)
-        
       });
     })
 
