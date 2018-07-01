@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         
-
+          asdfa
 
       </v-layout>
     </v-slide-y-transition>
@@ -12,12 +12,12 @@
 
 <script lang="ts">
 import {Vue, Component, Prop } from "vue-property-decorator";
+import axios from "axios";
 
 @Component
 export default class HelloWorld extends Vue {
   //data
-
-
+  @Prop() babies:Baby[] = []
   //computed
 
 
@@ -28,7 +28,57 @@ export default class HelloWorld extends Vue {
   }
 
   getData(){
-    console.log("i was created")
+    const url:string = "https://data.cityofnewyork.us/api/views/25th-nujf/rows.json"
+    const self = this;
+    axios.get(url).then(response => {
+      let responseData:any[] = response.data.data;
+      //const vm = self;
+      responseData.forEach(element => {
+        let ethnia!:Ethnicity
+
+        switch (element[10]) {
+
+          case "HISPANIC":
+            ethnia = Ethnicity.Hispanic;
+            break;
+          case "WHITE NON HISPANIC":
+            ethnia = Ethnicity.WhiteNonHispanic;
+            break;
+          case "BLACK NON HISPANIC":
+            ethnia = Ethnicity.BlackNonHispanic;
+            break;
+          case "ASIAN AND PACIFIC ISLANDER":
+            ethnia = Ethnicity.AsianPacificIslander;
+            break;
+        }
+
+        let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
+
+        this.babies.push(baby)
+        
+      });
+    })
+
+  }
+}
+export enum Ethnicity{
+    Hispanic = 0,
+    WhiteNonHispanic,
+    AsianPacificIslander,
+    BlackNonHispanic,
+  }
+  
+class Baby {
+  name: string
+  yearBirth: number
+  gender: string
+  ethnicity: Ethnicity
+
+  constructor(name:string, year:number, gender:string, ethnicity:Ethnicity){
+    this.name = name;
+    this.yearBirth = year;
+    this.gender = gender
+    this.ethnicity = ethnicity;
 
   }
 }
