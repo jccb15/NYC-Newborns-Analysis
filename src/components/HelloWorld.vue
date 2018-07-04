@@ -2,8 +2,8 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        
-          asdfa
+            
+          <chartjs-bar :datalabel="'TestDataLabel'" :labels="['happy','myhappy','hello']" :data="[100,40,60]"></chartjs-bar>
 
       </v-layout>
     </v-slide-y-transition>
@@ -13,15 +13,15 @@
 <script lang="ts">
 import {Vue, Component, Prop } from "vue-property-decorator";
 import axios from "axios";
-
-
+import 'chart.js';
+import 'hchs-vue-charts';
 
 @Component
 export default class HelloWorld extends Vue {
   //data
-  @Prop() Year!:number
+  @Prop() Year!:string
   @Prop() Gender!:string
-  @Prop() Ethni!:string
+  @Prop() Ethnia!:string
 
   babies:Baby[] = []
   
@@ -64,7 +64,7 @@ export default class HelloWorld extends Vue {
         let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
         this.babies.push(baby)
       });
-      console.log(this.getTopTen(this.filterBabies()))
+      //console.log(this.getTopTen(this.filterBabies()))
     })
   }
 
