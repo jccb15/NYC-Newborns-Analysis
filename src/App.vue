@@ -76,7 +76,7 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld/>
+      <HelloWorld :Year="yearFilter"></HelloWorld>
     </v-content>
 
 
@@ -94,12 +94,12 @@ export default {
   data () {
     return {
       drawer: true,
-      yearEnabled: 0,
-      genderEnabled: 0,
-      ethnicityEnabled: 0,
-      yearFilter: 0,
-      genderFilter: 0,
-      ethnicityFilter: 0,
+      yearEnabled: false,
+      genderEnabled: false,
+      ethnicityEnabled: false,
+      yearFilter: "2011",
+      genderFilter: "0",
+      ethnicityFilter: "0",
       right: true,
       rightDrawer: false,
       title: 'Vuetify.js'

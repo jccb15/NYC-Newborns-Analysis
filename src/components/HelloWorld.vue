@@ -14,15 +14,21 @@
 import {Vue, Component, Prop } from "vue-property-decorator";
 import axios from "axios";
 
+
+
 @Component
 export default class HelloWorld extends Vue {
   //data
+  @Prop() Year!:number
+  @Prop() Gender!:string
+  @Prop() Ethni!:string
+
   babies:Baby[] = []
-  globalMap: Map<string,number> = new Map
+  
   dataLoaded:boolean = false
 
   //computed
-
+  
 
   //methods
 
@@ -58,26 +64,53 @@ export default class HelloWorld extends Vue {
         let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
         this.babies.push(baby)
       });
-      this.getTopTen(this.babies)
+      console.log(this.getTopTen(this.filterBabies()))
     })
   }
 
-  getTopTen(babies:Baby[]){
-    let babiesMap: Map<string,number> = new Map
-    for (let baby of babies){
-      if (babiesMap.has(baby.name)){
-        babiesMap.set(baby.name, babiesMap.get(baby.name)!+1)
+  filterBabies(year:string="",gender:string="", ethnicity:string="" ):Baby[]{
+    let filteredBabies:Baby[] = this.babies
+
+    if (this.babies.length > 0) {
+      if(year.length > 0){
+        filteredBabies = filteredBabies.filter(baby => baby.yearBirth == +year)
       }
-      else{
-        babiesMap.set(baby.name, 1)
+      if(gender.length > 0){
+        filteredBabies = filteredBabies.filter(baby => baby.gender == (+gender ? "MALE" : "FEMALE"))
+      }
+      if(ethnicity.length > 0){
+        filteredBabies = filteredBabies.filter(baby => baby.ethnicity == +ethnicity)
       }
     }
-
-    console.log(babiesMap)
     
+    return filteredBabies
+    
+  }
+
+  getTopTen(babies:Baby[]):any[]{
+    let babiesObjectMap: {[key: string]: number} = {}
+    
+    for (let baby of babies){
+
+      if (baby.name in babiesObjectMap){
+        babiesObjectMap[baby.name] += 1
+      }
+      else{
+        babiesObjectMap[baby.name] = 1
+      }  
+    }
+
+    let sortedBabiesArray:any[] = []
+    for (let baby in babiesObjectMap){
+      sortedBabiesArray.push([baby, babiesObjectMap[baby]])
+    }
+    
+    sortedBabiesArray.sort(function(a,b){return b[1] - a[1]})
+    return sortedBabiesArray.splice(0,10)
 
   }
 }
+
 export enum Ethnicity{
     Hispanic = 0,
     WhiteNonHispanic,
@@ -92,9 +125,9 @@ class Baby {
   ethnicity: Ethnicity
 
   constructor(name:string, year:number, gender:string, ethnicity:Ethnicity){
-    this.name = name;
+    this.name = name.toUpperCase()
     this.yearBirth = year;
-    this.gender = gender
+    this.gender = gender.toUpperCase()
     this.ethnicity = ethnicity;
 
   }
