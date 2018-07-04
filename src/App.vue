@@ -14,7 +14,7 @@
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="yearFilter">
+            <v-radio-group v-model="yearFilter" @click="FiltersChanged()">
               <v-radio label="2011" value="2011"></v-radio>
               <v-radio label="2012" value="2012"></v-radio>
               <v-radio label="2013" value="2013"></v-radio>
@@ -36,7 +36,7 @@
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="genderFilter">
+            <v-radio-group v-model="genderFilter" @click="FiltersChanged()">
               <v-radio label="Female" value="0"></v-radio>
               <v-radio label="Male" value="1"></v-radio>
             </v-radio-group>
@@ -56,7 +56,7 @@
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="ethnicityFilter">
+            <v-radio-group v-model="ethnicityFilter" @click="FiltersChanged()">
               <v-radio label="Hispanic" value="0"></v-radio>
               <v-radio label="White Non Hispanic" value="1"></v-radio>
               <v-radio label="Asian & Pacific Islander" value="2"></v-radio>
@@ -76,7 +76,7 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld :Year="yearFilter"></HelloWorld>
+      <HelloWorld :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
     </v-content>
 
 
@@ -84,9 +84,9 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator"
 import HelloWorld from "@/components/HelloWorld.vue"
-import { eventBus } from '@/main';
+import { eventBus } from '@/main'
 
 
 @Component({
@@ -96,7 +96,7 @@ import { eventBus } from '@/main';
 })
 
 export default class App extends Vue {
-  
+
   //data
   drawer:boolean = true
   yearEnabled:boolean = false
@@ -108,8 +108,8 @@ export default class App extends Vue {
 
   //methods
 
-  sendFilters(){
-    eventBus.$emit('asd')
+  FiltersChanged(){
+    eventBus.$emit('filtersChanged', this.yearFilter, this.genderFilter, this.ethnicityFilter)
   }
 }
 </script>
