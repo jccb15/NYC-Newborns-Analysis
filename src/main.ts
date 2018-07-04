@@ -10,7 +10,7 @@ Vue.use((<any>window).VueCharts)
 
 Vue.config.productionTip = false
 
-Vue.prototype.$bus = new Vue({})
+export const eventBus = new Vue()
 
 new Vue({
   router,

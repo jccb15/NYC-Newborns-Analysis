@@ -86,6 +86,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue"
+import { eventBus } from '@/main';
+
 
 @Component({
   components: {
@@ -93,9 +95,9 @@ import HelloWorld from "@/components/HelloWorld.vue"
   },
 })
 
-
 export default class App extends Vue {
-
+  
+  //data
   drawer:boolean = true
   yearEnabled:boolean = false
   genderEnabled:boolean = false
@@ -103,5 +105,11 @@ export default class App extends Vue {
   yearFilter:string = "2011"
   genderFilter:string = "0"
   ethnicityFilter:string = "0"
+
+  //methods
+
+  sendFilters(){
+    eventBus.$emit('asd')
+  }
 }
 </script>
