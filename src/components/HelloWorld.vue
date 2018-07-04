@@ -13,8 +13,6 @@
 <script lang="ts">
 import {Vue, Component, Prop } from "vue-property-decorator";
 import axios from "axios";
-import 'chart.js';
-import 'hchs-vue-charts';
 
 @Component
 export default class HelloWorld extends Vue {

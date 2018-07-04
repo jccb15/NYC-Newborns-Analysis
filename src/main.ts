@@ -6,7 +6,7 @@ import router from './router'
 import 'chart.js';
 import 'hchs-vue-charts';
 
-Vue.use(window.VueCharts)
+Vue.use((<any>window).VueCharts)
 
 Vue.config.productionTip = false
 
