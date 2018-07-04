@@ -83,27 +83,25 @@
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld'
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
+import HelloWorld from "@/components/HelloWorld.vue"
 
-export default {
-  name: 'App',
+@Component({
   components: {
-    HelloWorld
+    HelloWorld,
   },
-  data () {
-    return {
-      drawer: true,
-      yearEnabled: false,
-      genderEnabled: false,
-      ethnicityEnabled: false,
-      yearFilter: "2011",
-      genderFilter: "0",
-      ethnicityFilter: "0",
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
-  }
+})
+
+
+export default class App extends Vue {
+
+  drawer:boolean = true
+  yearEnabled:boolean = false
+  genderEnabled:boolean = false
+  ethnicityEnabled:boolean = false
+  yearFilter:string = "2011"
+  genderFilter:string = "0"
+  ethnicityFilter:string = "0"
 }
 </script>
