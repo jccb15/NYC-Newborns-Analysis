@@ -76,8 +76,12 @@
     </v-toolbar>
 
     <v-content>
-      <Data :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
-      <AppliedFilters/>
+      <v-container fill-height>
+        <v-layout column>
+          <Data :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
+          <AppliedFilters/>
+        </v-layout>
+      </v-container>
     </v-content>
 
 
@@ -127,3 +131,9 @@ export default class App extends Vue {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.container
+  padding: 0
+  margin: 0
+</style>

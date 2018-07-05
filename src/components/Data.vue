@@ -1,14 +1,17 @@
 <template>
-  <v-container fill-height >
-    <v-layout column fill-height>
-      <v-flex d-flex xs10>
-        <chartjs-bar class="chart" :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
-      </v-flex>
-      
-      <v-flex d-flex xs2>
-        
-      </v-flex>
-      
+  <v-container>
+
+    <v-layout column >
+      <chartjs-bar 
+      class="chart" 
+      :datalabel="''" 
+      :labels="labels" 
+      :data="data" 
+      :bind="true"
+      :backgroundcolor = "'rgba(33,150,243,0.5)'"
+      mybordercolor = "'rgba(33,150,243,1)'"
+      />
+
     </v-layout>
   </v-container>
 </template>
@@ -49,7 +52,6 @@ export default class Data extends Vue {
     eventBus.$on('filtersChanged', (year:string, gender:string, ethnicity:string) => { 
       this.UpdateChart(year, gender,ethnicity)
     })
-    console.log("created method")
     if (this.dataLoaded == false) {
       this.getData()
       this.dataLoaded = true
@@ -99,7 +101,6 @@ export default class Data extends Vue {
         filteredBabies = filteredBabies.filter(baby => baby.ethnicity == +ethnicity)
       }
     }
-    console.log(this.getTopTen(filteredBabies))
     return filteredBabies
   }
 
