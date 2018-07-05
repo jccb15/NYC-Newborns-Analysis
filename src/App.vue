@@ -70,7 +70,7 @@
       
     </v-navigation-drawer>
 
-   <v-toolbar app fixed clipped-left>
+   <v-toolbar app fixed clipped-left color ="blue lighten-2">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Vue NY Test</v-toolbar-title>
     </v-toolbar>
