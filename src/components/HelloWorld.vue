@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Prop } from "vue-property-decorator";
+import {Vue, Component, Prop, Watch } from "vue-property-decorator";
 import axios from "axios";
 import {eventBus} from "../main"
 
@@ -23,7 +23,6 @@ export default class HelloWorld extends Vue {
   @Prop() EthnicityEnabled!:boolean
 
   babies:Baby[] = []
-
   dataLoaded:boolean = false
 
   //computed
@@ -34,22 +33,21 @@ export default class HelloWorld extends Vue {
   get isGenderEnabled(){
     return this.GenderEnabled
   }
-
+  
   get isEthnicityEnabled(){
     return this.EthnicityEnabled
   }
 
   //methods
-
   created(){
-    eventBus.$on('filtersChanged', (year:string, gender:string, ethnicity:string) => this.filterBabies(year,gender,ethnicity))
+    eventBus.$on('filtersChanged', (year:string, gender:string, ethnicity:string) => { 
+      this.filterBabies(year, gender,ethnicity)
+    })
     
     if (this.dataLoaded == false) {
       this.getData()
       this.dataLoaded = true
     }
-
-
   }
 
   getData(){
@@ -85,13 +83,13 @@ export default class HelloWorld extends Vue {
     let filteredBabies:Baby[] = this.babies
 
     if (this.babies.length > 0) {
-      if( this.isYearEnabled && year.length > 0){
+      if(year.length > 0){
         filteredBabies = filteredBabies.filter(baby => baby.yearBirth == +year)
       }
-      if(this.isGenderEnabled && gender.length > 0){
+      if(gender.length > 0){
         filteredBabies = filteredBabies.filter(baby => baby.gender == (+gender ? "MALE" : "FEMALE"))
       }
-      if(this.isEthnicityEnabled && ethnicity.length > 0){
+      if(ethnicity.length > 0){
         filteredBabies = filteredBabies.filter(baby => baby.ethnicity == +ethnicity)
       }
     }
@@ -119,11 +117,6 @@ export default class HelloWorld extends Vue {
     
     sortedBabiesArray.sort(function(a,b){return b[1] - a[1]})
     return sortedBabiesArray.splice(0,10)
-
-  }
-
-  UpdateData(){
-
   }
 }
 

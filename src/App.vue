@@ -8,13 +8,13 @@
             <v-subheader class="mt-2 grey--text text--darken-1">YEAR</v-subheader>
           </v-flex>
           <v-flex xs2>
-            <v-switch v-model="yearEnabled"></v-switch>
+            <v-switch v-model="yearEnabled" @change="FiltersChanged()"></v-switch>
           </v-flex>
         </v-layout>
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="yearFilter" @click="FiltersChanged()">
+            <v-radio-group v-model="yearFilter" :disabled="!yearEnabled" @click="FiltersChanged()">
               <v-radio label="2011" value="2011"></v-radio>
               <v-radio label="2012" value="2012"></v-radio>
               <v-radio label="2013" value="2013"></v-radio>
@@ -30,13 +30,13 @@
             <v-subheader class="mt-2 grey--text text--darken-1">GENDER</v-subheader>
           </v-flex>
           <v-flex xs2>
-            <v-switch v-model="genderEnabled"></v-switch>
+            <v-switch v-model="genderEnabled" @change="FiltersChanged()"></v-switch>
           </v-flex>
         </v-layout>
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="genderFilter" @click="FiltersChanged()">
+            <v-radio-group v-model="genderFilter" :disabled="!genderEnabled" @click="FiltersChanged()">
               <v-radio label="Female" value="0"></v-radio>
               <v-radio label="Male" value="1"></v-radio>
             </v-radio-group>
@@ -50,13 +50,13 @@
             <v-subheader class="mt-2 grey--text text--darken-1">ETHNICITY</v-subheader>
           </v-flex>
           <v-flex xs2>
-            <v-switch v-model="ethnicityEnabled"></v-switch>
+            <v-switch v-model="ethnicityEnabled" @change="FiltersChanged()"></v-switch>
           </v-flex>
         </v-layout>
 
         <v-layout row>
           <v-flex>
-            <v-radio-group v-model="ethnicityFilter" @click="FiltersChanged()">
+            <v-radio-group v-model="ethnicityFilter" :disabled="!ethnicityEnabled" @click="FiltersChanged()">
               <v-radio label="Hispanic" value="0"></v-radio>
               <v-radio label="White Non Hispanic" value="1"></v-radio>
               <v-radio label="Asian & Pacific Islander" value="2"></v-radio>
@@ -109,7 +109,18 @@ export default class App extends Vue {
   //methods
 
   FiltersChanged(){
-    eventBus.$emit('filtersChanged', this.yearFilter, this.genderFilter, this.ethnicityFilter)
+    let filters:string[] = this.GetFilterParams()
+    eventBus.$emit('filtersChanged', filters[0], filters[1], filters[2])
+  }
+
+  GetFilterParams():string[]{
+    let params:string[] = []
+    
+    params.push(this.yearEnabled ? this.yearFilter : "")
+    params.push(this.genderEnabled ? this.genderFilter : "")
+    params.push(this.ethnicityEnabled ? this.ethnicityFilter : "")
+
+    return params
   }
 }
 </script>
