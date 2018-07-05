@@ -1,7 +1,6 @@
 <template>
   <v-container>
 
-    <v-layout column >
       <chartjs-bar 
       class="chart" 
       :datalabel="''" 
@@ -9,10 +8,9 @@
       :data="data" 
       :bind="true"
       :backgroundcolor = "'rgba(33,150,243,0.5)'"
-      mybordercolor = "'rgba(33,150,243,1)'"
+      :mybordercolor = "'rgba(33,150,243,1)'"
       />
 
-    </v-layout>
   </v-container>
 </template>
 

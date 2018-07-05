@@ -76,8 +76,8 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fill-height>
-        <v-layout column>
+      <v-container class="content" fluid  fill-height>
+        <v-layout column align-content-center>
           <Data :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
           <AppliedFilters/>
         </v-layout>
@@ -133,7 +133,7 @@ export default class App extends Vue {
 </script>
 
 <style lang="sass" scoped>
-.container
+.content
   padding: 0
   margin: 0
 </style>
