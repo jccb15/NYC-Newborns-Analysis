@@ -1,12 +1,15 @@
 <template>
-  <v-container fluid>
-    <v-slide-y-transition mode="out-in">
-      <v-layout column align-center>
-            
-          <chartjs-bar :width="700" :height="500" :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
-
-      </v-layout>
-    </v-slide-y-transition>
+  <v-container >
+    <v-layout column fill-height>
+      <v-flex xs10>
+        <chartjs-bar  :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
+      </v-flex>
+      
+      <v-flex xs2>
+        sdfdf
+      </v-flex>
+      
+    </v-layout>
   </v-container>
 </template>
 
