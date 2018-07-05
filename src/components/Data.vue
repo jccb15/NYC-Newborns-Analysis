@@ -1,12 +1,12 @@
 <template>
-  <v-container >
+  <v-container fill-height >
     <v-layout column fill-height>
-      <v-flex xs10>
-        <chartjs-bar  :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
+      <v-flex d-flex xs10>
+        <chartjs-bar class="chart" :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
       </v-flex>
       
-      <v-flex xs2>
-        sdfdf
+      <v-flex d-flex xs2>
+        
       </v-flex>
       
     </v-layout>
@@ -19,7 +19,7 @@ import axios from "axios";
 import {eventBus} from "../main"
 
 @Component
-export default class HelloWorld extends Vue {
+export default class Data extends Vue {
   //data
   @Prop() YearEnabled!:boolean
   @Prop() GenderEnabled!:boolean
@@ -164,20 +164,12 @@ class Baby {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style lang="sass" scoped>
+.container
+  padding: 0
+  margin: 0
+
+.chart
+  padding: 25px
 </style>
+

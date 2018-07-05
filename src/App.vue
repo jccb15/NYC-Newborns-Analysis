@@ -76,7 +76,8 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
+      <Data :YearEnabled="yearEnabled" :GenderEnabled="genderEnabled" :EthnicityEnabled ="ethnicityEnabled"/>
+      <AppliedFilters/>
     </v-content>
 
 
@@ -85,13 +86,15 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator"
-import HelloWorld from "@/components/HelloWorld.vue"
+import Data from "@/components/Data.vue"
+import AppliedFilters from "@/components/AppliedFilters.vue"
 import { eventBus } from '@/main'
 
 
 @Component({
   components: {
-    HelloWorld,
+    Data,
+    AppliedFilters
   },
 })
 
