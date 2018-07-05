@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
             
-          <chartjs-bar :width="700" :height="500" :datalabel="'TestDataLabel'" :labels="['happy','myhappy','hello']" :data="[100,40,60]"></chartjs-bar>
+          <chartjs-bar :width="700" :height="500" :datalabel="''" :labels="labels" :data="data" :bind="true"></chartjs-bar>
 
       </v-layout>
     </v-slide-y-transition>
@@ -25,6 +25,9 @@ export default class HelloWorld extends Vue {
   babies:Baby[] = []
   dataLoaded:boolean = false
 
+  labels:string[]=[]
+  data:number[]=[]
+
   //computed
   get isYearEnabled(){
     return this.YearEnabled
@@ -41,9 +44,9 @@ export default class HelloWorld extends Vue {
   //methods
   created(){
     eventBus.$on('filtersChanged', (year:string, gender:string, ethnicity:string) => { 
-      this.filterBabies(year, gender,ethnicity)
+      this.UpdateChart(year, gender,ethnicity)
     })
-    
+    console.log("created method")
     if (this.dataLoaded == false) {
       this.getData()
       this.dataLoaded = true
@@ -75,7 +78,7 @@ export default class HelloWorld extends Vue {
         let baby:Baby = new Baby(element[11],element[8],element[9], ethnia);
         this.babies.push(baby)
       });
-      //console.log(this.getTopTen(this.filterBabies()))
+      this.UpdateChart("","","")
     })
   }
 
@@ -117,6 +120,21 @@ export default class HelloWorld extends Vue {
     
     sortedBabiesArray.sort(function(a,b){return b[1] - a[1]})
     return sortedBabiesArray.splice(0,10)
+  }
+
+  UpdateChart(year:string, gender:string, ethnicity:string){
+    let topFiltered = this.getTopTen(this.filterBabies(year,gender,ethnicity))
+    
+    let labels:string[] = []
+    let data:number[] = []
+  
+    for (let baby of topFiltered){
+      labels.push(baby[0])
+      data.push(baby[1])
+    }
+
+    this.labels = labels
+    this.data = data
   }
 }
 
