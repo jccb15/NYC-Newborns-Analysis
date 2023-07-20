@@ -1,9 +1,9 @@
 
 # Analysis of newborn's names in New York
 
-A web application that presents stadistics about the names of newborn babies in New York city. I allow to filter by defferent criterias like year, gender and ethnicity.
+A web application that presents statistics about the names of newborn babies in New York city. It allows to filter by defferent criterias like year, gender and ethnicity.
 
-This sample project was built with the Vue and Typescript.
+This sample project was built with Vue and Typescript.
 
 
 ## Screenshots
